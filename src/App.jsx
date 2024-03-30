@@ -7,15 +7,13 @@ function App() {
   const [desc, setDesc] = useState('');
   const [editIndex, setEditIndex] = useState(-1);
 
- 
   useEffect(() => {
     const storedTodos = JSON.parse(localStorage.getItem('todos'));
-    if (storedTodos) 
+    if (storedTodos && storedTodos.length > 0) {
       setTodos(storedTodos);
-    
+    }
   }, []);
 
-  
   useEffect(() => {
     localStorage.setItem('todos', JSON.stringify(todos));
   }, [todos]);
