@@ -13,11 +13,16 @@ function App() {
   }
   return (
     <>
-    <div>
+    <>
       <input type="text" placeholder='enter the taks' value={title} onChange={(e)=>{setTitle(e.target.value)}}/>
       <input type="text" placeholder='enter the description' value={desc} onChange={(e)=>{setDesc(e.target.value)}}/>
 
       <button onClick={()=>{addTodo({title :title, desc: desc})}}>Add task</button>
+      <button onClick={()=>{setTodos([])}}>delete all</button>
+      <button onClick={() => editTodo(index)}>Edit</button>
+            
+   
+    
     </div>
 
     <h1>Todos</h1>
