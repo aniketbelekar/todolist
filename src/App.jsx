@@ -47,14 +47,12 @@ function App() {
         <input type="text" placeholder="Enter description" value={desc} onChange={(e) => setDesc(e.target.value)} />
 
         {editIndex === -1 ? (
-         <button onClick={addTodo}>Add Task</button >
+          <button onClick={addTodo}>Add Task</button>
         ) : (
           <button onClick={updateTodo}>Update Task</button>
         )}
-        <button onClick={deleteAllTodos}>Delete All</button>
+        <button onClick={deleteAllTodos} style={{ marginLeft: '10px' }}>Delete All</button>
       </div>
-
-
 
       <div className="todoList">
         {todos.map((todo, index) => (
@@ -62,11 +60,9 @@ function App() {
             <h3>{todo.title}</h3>
             <p>{todo.desc}</p>
 
-
-
             <div className="buttons">
               <button onClick={() => editTodo(index)}>Edit</button>
-              <button onClick={() => deleteTodo(index)}>Delete</button> 
+              <button onClick={() => deleteTodo(index)}>Delete</button>
             </div>
           </div>
         ))}
