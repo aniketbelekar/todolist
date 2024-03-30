@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 
 function App() {
@@ -6,6 +6,19 @@ function App() {
   const [title, setTitle] = useState('');
   const [desc, setDesc] = useState('');
   const [editIndex, setEditIndex] = useState(-1);
+
+ 
+  useEffect(() => {
+    const storedTodos = JSON.parse(localStorage.getItem('todos'));
+    if (storedTodos) 
+      setTodos(storedTodos);
+    
+  }, []);
+
+  
+  useEffect(() => {
+    localStorage.setItem('todos', JSON.stringify(todos));
+  }, [todos]);
 
   const addTodo = () => {
     const newTodo = { title, desc };
