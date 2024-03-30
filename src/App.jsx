@@ -1,43 +1,78 @@
-import { useState } from 'react'
-import './App.css'
+import React, { useState } from 'react';
+import './App.css';
 
 function App() {
   const [todos, setTodos] = useState([]);
   const [title, setTitle] = useState('');
   const [desc, setDesc] = useState('');
+  const [editIndex, setEditIndex] = useState(-1);
 
-  function addTodo(todo){
-    setTodos([...todos, todo])
-    setTitle('')
-    setDesc('')
-  }
+  const addTodo = () => {
+    const newTodo = { title, desc };
+    setTodos([...todos, newTodo]);
+    setTitle('');
+    setDesc('');
+  };
+
+  const deleteTodo = (index) => {
+    const updatedTodos = [...todos];
+    updatedTodos.splice(index, 1);
+    setTodos(updatedTodos);
+  };
+
+  const deleteAllTodos = () => {
+    setTodos([]);
+  };
+
+  const editTodo = (index) => {
+    setEditIndex(index);
+    setTitle(todos[index].title);
+    setDesc(todos[index].desc);
+  };
+
+  const updateTodo = () => {
+    const updatedTodos = [...todos];
+    updatedTodos[editIndex] = { title, desc };
+    setTodos(updatedTodos);
+    setEditIndex(-1);
+    setTitle('');
+    setDesc('');
+  };
+
   return (
-    <>
-    <>
-      <input type="text" placeholder='enter the taks' value={title} onChange={(e)=>{setTitle(e.target.value)}}/>
-      <input type="text" placeholder='enter the description' value={desc} onChange={(e)=>{setDesc(e.target.value)}}/>
+    <div className="App">
+      <h1>Todo List</h1>
+      <div className="form">
+        <input type="text" placeholder="Enter task" value={title} onChange={(e) => setTitle(e.target.value)} />
+        <input type="text" placeholder="Enter description" value={desc} onChange={(e) => setDesc(e.target.value)} />
 
-      <button onClick={()=>{addTodo({title :title, desc: desc})}}>Add task</button>
-      <button onClick={()=>{setTodos([])}}>delete all</button>
-      <button onClick={() => editTodo(index)}>Edit</button>
-            
-   
-    
-    </div>
+        {editIndex === -1 ? (
+         <button onClick={addTodo}>Add Task</button >
+        ) : (
+          <button onClick={updateTodo}>Update Task</button>
+        )}
+        <button onClick={deleteAllTodos}>Delete All</button>
+      </div>
 
-    <h1>Todos</h1>
-    <div className="todoContainer">
-      {
-        todos.map(function(item){
-          return <>
-          <div className="title">{item.title}</div>
-          <p className="desc">{item.desc}</p>
-          </>
-        })
-      }
+
+
+      <div className="todoList">
+        {todos.map((todo, index) => (
+          <div className="todo" key={index}>
+            <h3>{todo.title}</h3>
+            <p>{todo.desc}</p>
+
+
+
+            <div className="buttons">
+              <button onClick={() => editTodo(index)}>Edit</button>
+              <button onClick={() => deleteTodo(index)}>Delete</button> 
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
-    </>
-  )
+  );
 }
 
-export default App
+export default App;
